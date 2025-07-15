@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Library Books</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f9f9f9;
+      color: #333;
+    }
+    h2, h3 {
+      color: #2c3e50;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      width: 400px;
+    }
+    input[type="text"],
+    input[type="number"] {
+      width: calc(100% - 22px);
+      padding: 8px 10px;
+      margin: 6px 0 12px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    th, td {
+      text-align: left;
+      padding: 12px;
+    }
+    th {
+      background: #3498db;
+      color: #fff;
+    }
+    tr:nth-child(even) {
+      background: #f2f2f2;
+    }
+    a {
+      color: #e74c3c;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .nav {
+      margin-top: 20px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 20px;
+    }
+    ul li {
+      background: #f1c40f;
+      color: #333;
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Library Books</h2>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+        {% for msg in messages %}
+          <li>{{ msg }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <h3>Add a New Book</h3>
+  <form method="POST">
+    <label>Title:</label><br>
+    <input name="title" required><br>
+    <label>Author:</label><br>
+    <input name="author" required><br>
+    <label>ISBN:</label><br>
+    <input name="isbn"><br>
+    <label>Publisher:</label><br>
+    <input name="publisher"><br>
+    <label>Pages:</label><br>
+    <input name="pages" type="number" min="0" step="1" autocomplete="off"><br>
+    <label>Stock:</label><br>
+    <input name="stock" type="number" min="0" step="1" autocomplete="off" required><br>
+    <button type="submit">➕ Add Book</button>
+  </form>
+
+  <h3>Existing Books</h3>
+  <table>
+    <tr>
+      <th>Title</th><th>Author</th><th>ISBN</th><th>Publisher</th><th>Pages</th><th>Stock</th><th>Action</th>
+    </tr>
+    {% for book in books %}
+    <tr>
+      <td>{{ book.title }}</td>
+      <td>{{ book.author }}</td>
+      <td>{{ book.isbn }}</td>
+      <td>{{ book.publisher }}</td>
+      <td>{{ book.pages }}</td>
+      <td>{{ book.stock }}</td>
+      <td><a href="{{ url_for('delete_book', book_id=book.id) }}">Delete</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <h3>Import Books from Frappe</h3>
+  <form method="POST" action="{{ url_for('import_books') }}">
+    <label>Number of books:</label><br>
+    <input type="number" name="num_books" value="20" min="1" step="1"><br>
+    <label>Title:</label><br>
+    <input type="text" name="title"><br>
+    <label>Author:</label><br>
+    <input type="text" name="author"><br>
+    <label>Publisher:</label><br>
+    <input type="text" name="publisher"><br>
+    <label>Page number:</label><br>
+    <input type="number" name="page" value="1" min="1" step="1"><br>
+    <button type="submit"> Import Books</button>
+  </form>
+
+  <div class="nav">
+    <a href="/members">Manage Members</a> |
+    <a href="/issue">Issue</a> |
+    <a href="/return">Return</a>
+  </div>
+</body>
+</html>

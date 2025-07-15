@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Library Members</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f9f9f9;
+      color: #333;
+    }
+    h2 {
+      color: #2c3e50;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      width: 400px;
+    }
+    input[type="text"],
+    input[type="email"] {
+      width: calc(100% - 22px);
+      padding: 8px 10px;
+      margin: 6px 0 12px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    th, td {
+      text-align: left;
+      padding: 12px;
+    }
+    th {
+      background: #3498db;
+      color: #fff;
+    }
+    tr:nth-child(even) {
+      background: #f2f2f2;
+    }
+    a {
+      color: #e74c3c;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .nav {
+      margin-top: 20px;
+    }
+    .nav a {
+      text-decoration: none;
+      color: #3498db;
+      margin-right: 10px;
+    }
+    .nav a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h2> Library Members</h2>
+
+  <h3>Add New Member</h3>
+  <form method="POST">
+    <label>Name:</label><br>
+    <input type="text" name="name" required><br>
+    <label>Email:</label><br>
+    <input type="email" name="email" required><br>
+    <button type="submit"> Add Member</button>
+  </form>
+
+  <h3> Current Members</h3>
+  <table>
+    <tr>
+      <th>Name</th><th>Email</th><th>Debt (₹)</th><th>Action</th>
+    </tr>
+    {% for member in members %}
+    <tr>
+      <td>{{ member.name }}</td>
+      <td>{{ member.email }}</td>
+      <td>{{ "%.2f"|format(member.outstanding_debt) }}</td>
+      <td><a href="{{ url_for('delete_member', member_id=member.id) }}">Delete</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <div class="nav">
+    <a href="/books"> Books</a> |
+    <a href="/issue"> Issue</a> |
+    <a href="/return"> Return</a>
+  </div>
+</body>
+</html>
