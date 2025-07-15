@@ -99,8 +99,8 @@ This project is open-source. Use it for learning or adapt it for your own needs!
 
 ---------------------------------
 
-✏️ Author
-📧 Your Name
-💻 Your GitHub Username
+✏️ Author</br>
+📧 RAHUL PATIL
 
+------------------------------------
 Happy coding! 🚀📚
