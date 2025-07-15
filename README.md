@@ -55,7 +55,7 @@ pip install -r requirements.txt
 Create the MySQL database:
 
 ```
-CREATE DATABASE library_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE library_db;
 
 CREATE USER 'rp32'@'localhost' IDENTIFIED BY 'Strong@123';
 GRANT ALL PRIVILEGES ON library_db.* TO 'rp32'@'localhost';
